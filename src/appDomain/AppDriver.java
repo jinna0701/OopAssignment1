@@ -1,25 +1,74 @@
 package appDomain;
 
-public class AppDriver
-{
+import shapes.*;
+import utilities.ShapeParser;
+import java.io.FileNotFoundException;
 
-	public static void main( String[] args )
-	{
-		// TODO Auto-generated method stub
+public class AppDriver {
+    public static void main(String[] args) {
+        // Step 1: Initialize variables to store command line arguments
+        String fileName = "";       // Stores the file name (e.g., shapes1.txt)
+        String sortType = "";       // Stores the sort type (e.g., height, base area, volume)
+        String sortAlgorithm = "";  // Stores the sorting algorithm (e.g., bubble, quick, merge)
 
-		// refer to demo001 BasicFileIO.java for a simple example on how to
-		// read data from a text file
+        // Step 2: Parse command line arguments
+        for (int i = 0; i < args.length; i++) {
+            switch (args[i].toLowerCase()) {
+                case "-f":  // File name argument
+                    fileName = args[++i];  // Store the next argument as the file name
+                    break;
+                case "-t":  // Sort type argument
+                    sortType = args[++i];  // Store the next argument as the sort type
+                    break;
+                case "-s":  // Sorting algorithm argument
+                    sortAlgorithm = args[++i];  // Store the next argument as the sorting algorithm
+                    break;
+            }
+        }
 
-		// refer to demo01 Test.java for an example on how to parse command
-		// line arguments and benchmarking tests
+        // Step 3: Validate command line arguments
+        if (fileName.isEmpty() || sortType.isEmpty() || sortAlgorithm.isEmpty()) {
+            System.err.println("Missing command line arguments. Usage: java -jar Sort.jar -f <file> -t <sortType> -s <sortAlgorithm>");
+            return;
+        }
 
-		// refer to demo02 Student.java for comparable implementation, and
-		// NameCompare.java or GradeCompare for comparator implementations
+        // Step 4: Parse the input file and create shape objects
+        try {
+            Shape[] shapes = ShapeParser.parseFile(fileName);
 
-		// refer to demo02 KittySort.java on how to use a custom sorting
-		// algorithm on a list of comparables to sort using either the
-		// natural order (comparable) or other orders (comparators)
+            // Step 5: Sort the shapes based on the specified sort type and algorithm
+            // (This part will be implemented later)
+            switch (sortAlgorithm.toLowerCase()) {
+                case "b":  // Bubble Sort
+                    // Call Bubble Sort
+                    break;
+                case "s":  // Selection Sort
+                    // Call Selection Sort
+                    break;
+                case "i":  // Insertion Sort
+                    // Call Insertion Sort
+                    break;
+                case "m":  // Merge Sort
+                    // Call Merge Sort
+                    break;
+                case "q":  // Quick Sort
+                    // Call Quick Sort
+                    break;
+                case "z":  // Custom Sort (e.g., Heap Sort, Radix Sort)
+                    // Call Custom Sort
+                    break;
+                default:
+                    System.err.println("Invalid sorting algorithm. Use b, s, i, m, q, or z.");
+                    return;
+            }
 
-	}
+            // Step 6: Display the sorted results and benchmarking data
+            // (This part will be implemented later)
+            System.out.println("Sorting completed successfully!");
 
+        } catch (FileNotFoundException e) {
+            // Handle file not found error
+            System.err.println("File not found: " + fileName);
+        }
+    }
 }
