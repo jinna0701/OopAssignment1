@@ -1,0 +1,78 @@
+package utilities;
+
+import java.util.Comparator;
+
+ 
+
+public class QuickSort<T extends Comparable<T>> {
+    
+    public void quickSort(T[] list) {
+        quickSort(list, 0, list.length - 1);
+    }
+
+ 
+    public void quickSort(T[] list, Comparator<T> comparator) {
+        quickSort(list, 0, list.length - 1, comparator);
+    }
+
+    private void quickSort(T[] list, int low, int high) {
+        if (low < high) {
+            int pivotIndex = partition(list, low, high);
+            quickSort(list, low, pivotIndex - 1);
+            quickSort(list, pivotIndex + 1, high);
+        }
+    }
+
+    private void quickSort(T[] list, int low, int high, Comparator<T> comparator) {
+        if (low < high) {
+            int pivotIndex = partition(list, low, high, comparator);
+            quickSort(list, low, pivotIndex - 1, comparator);
+            quickSort(list, pivotIndex + 1, high, comparator);
+        }
+    }
+
+    private int partition(T[] list, int low, int high) {
+        T pivot = list[high];  
+        int i = low - 1;  
+
+        for (int j = low; j < high; j++) {
+            
+            if (list[j].compareTo(pivot) >= 0) {
+                i++;
+             
+                T temp = list[i];
+                list[i] = list[j];
+                list[j] = temp;
+            }
+        }
+
+       
+        T temp = list[i + 1];
+        list[i + 1] = list[high];
+        list[high] = temp;
+
+        return i + 1;  
+    }
+
+    private int partition(T[] list, int low, int high, Comparator<T> comparator) {
+        T pivot = list[high];  
+        int i = low - 1;  
+
+        for (int j = low; j < high; j++) {
+            
+            if (comparator.compare(list[j], pivot) >= 0) {
+                i++;
+            
+                T temp = list[i];
+                list[i] = list[j];
+                list[j] = temp;
+            }
+        }
+ 
+        T temp = list[i + 1];
+        list[i + 1] = list[high];
+        list[high] = temp;
+
+        return i + 1;  
+    }
+}
