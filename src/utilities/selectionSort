@@ -1,0 +1,25 @@
+ 
+    public void selectionSort(T[] list, Comparator<T> comparator) {
+        int n = list.length;
+        T temp;
+        for (int i = 0; i < n - 1; i++) {
+            int minIndex = i;
+            for (int j = i + 1; j < n; j++) {
+                int result;
+                if (comparator == null) {
+                    result = list[j].compareTo(list[minIndex]);
+                } else {
+                    result = comparator.compare(list[j], list[minIndex]);
+                }
+
+                if (result > 0) {
+                    minIndex = j;
+                }
+            }
+          
+            temp = list[minIndex];
+            list[minIndex] = list[i];
+            list[i] = temp;
+        }
+    }
+}
